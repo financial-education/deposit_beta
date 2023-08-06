@@ -1,0 +1,34 @@
+#+title: Deposit Betas
+#+author: Matt Brigida, Ph.D.
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+#+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
+#+PROPERTY: header-args    :exports none
+
+* Deposits
+
+  Banks accept deposits (into savings and checking accounts) and use those deposits to fund loans such as mortgages.
+
+* Deposit Beta
+
+
+In terms of modeling NMDs, we use the term **Beta** to mean the sensitivity of deposit rates to short-term risk-free interest rate changes.
+
+#+begin_quote
+Beta: the change in deposit rates given a change in short-term interest rates.
+#+end_quote
+
+
+
+
+
+
+* Description
+
+Non-Maturity Deposits (NMDs) are accounts which have no set maturity dates.  This means depositors can take money out with no penalty. This in turn implies the interested rate is based on very short-term rates, and so the accounts have little interest rate risk to the depositor.  Types of non-Maturity Deposit accounts are:
+
+- Retail Savings
+- Checking
+- Money Market
+
+Deposits are liabilities for banks, and are used to fund assets such as loans. NMDs are generally a stable and inexpensive source of funding for banks, and are thus used to fund a large proportion of the banks assets.  Accordingly, understanding the behavior of bank deposits markedly affects the value of the bank.
+
