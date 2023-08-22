@@ -6,29 +6,26 @@
 
 * Deposits
 
-  Banks accept deposits (into savings and checking accounts) and use those deposits to fund loans such as mortgages.
+  Banks accept deposits (into savings and checking accounts) and use those deposits to fund loans such as mortgages.  Deposits are a liability for the bank and the bank pays the floating deposit rate.  The loans are assets to the bank, and often they pay a fixed rate.
+
+  Banks generally pay deposit rates which are below market short-term interest rates.  Therefore banks rely on their /deposit franchise/ for inexpensive funding.
 
 * Deposit Beta
 
-
-In terms of modeling NMDs, we use the term **Beta** to mean the sensitivity of deposit rates to short-term risk-free interest rate changes.
+The **Beta** of the deposits means the sensitivity of deposit rates to short-term interest rate changes (often the Federal Funds rate).
 
 #+begin_quote
 Beta: the change in deposit rates given a change in short-term interest rates.
 #+end_quote
 
+** NYU Dataset
 
+Researchers at NYU provide a dataset with the deposit beta for each bank.  We can download this data with:
 
+#+begin_src python
+import pandas as pd
 
+def get_beta_data():
+    
 
-
-* Description
-
-Non-Maturity Deposits (NMDs) are accounts which have no set maturity dates.  This means depositors can take money out with no penalty. This in turn implies the interested rate is based on very short-term rates, and so the accounts have little interest rate risk to the depositor.  Types of non-Maturity Deposit accounts are:
-
-- Retail Savings
-- Checking
-- Money Market
-
-Deposits are liabilities for banks, and are used to fund assets such as loans. NMDs are generally a stable and inexpensive source of funding for banks, and are thus used to fund a large proportion of the banks assets.  Accordingly, understanding the behavior of bank deposits markedly affects the value of the bank.
-
+#+end_src
