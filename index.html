@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2023-08-06 Sun 14:05 -->
+<!-- 2024-01-24 Wed 19:45 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Deposit Betas</title>
@@ -24,27 +24,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1510857">1. Deposits</a></li>
-<li><a href="#orgbb7b28d">2. Deposit Beta</a></li>
-<li><a href="#org296c8f8">3. Description</a></li>
+<li><a href="#org72a01b5">1. Deposits</a></li>
+<li><a href="#orge564665">2. Deposit Beta</a>
+<ul>
+<li><a href="#org19bfe5b">2.1. NYU Dataset</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org1510857" class="outline-2">
-<h2 id="org1510857"><span class="section-number-2">1.</span> Deposits</h2>
+<div id="outline-container-org72a01b5" class="outline-2">
+<h2 id="org72a01b5"><span class="section-number-2">1.</span> Deposits</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-Banks accept deposits (into savings and checking accounts) and use those deposits to fund loans such as mortgages.
+Banks accept deposits (into savings and checking accounts) and use those deposits to fund loans such as mortgages.  Deposits are a liability for the bank and the bank pays the floating deposit rate.  The loans are assets to the bank, and often they pay a fixed rate.
+</p>
+
+<p>
+Banks generally pay deposit rates which are below market short-term interest rates.  Therefore banks rely on their <i>deposit franchise</i> for inexpensive funding.
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgbb7b28d" class="outline-2">
-<h2 id="orgbb7b28d"><span class="section-number-2">2.</span> Deposit Beta</h2>
+<div id="outline-container-orge564665" class="outline-2">
+<h2 id="orge564665"><span class="section-number-2">2.</span> Deposit Beta</h2>
 <div class="outline-text-2" id="text-2">
 <p>
-In terms of modeling NMDs, we use the term <b><b>Beta</b></b> to mean the sensitivity of deposit rates to short-term risk-free interest rate changes.
+The <b><b>Beta</b></b> of the deposits means the sensitivity of deposit rates to short-term interest rate changes (often the Federal Funds rate).
 </p>
 
 <blockquote>
@@ -53,35 +60,65 @@ Beta: the change in deposit rates given a change in short-term interest rates.
 </p>
 </blockquote>
 </div>
+
+<div id="outline-container-org19bfe5b" class="outline-3">
+<h3 id="org19bfe5b"><span class="section-number-3">2.1.</span> NYU Dataset</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Researchers at NYU provide a dataset with the deposit beta for each bank.  We can download this data with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> pandas <span style="color: #859900; font-weight: bold;">as</span> pd
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #859900; font-weight: bold;">import</span> ssl
+ssl.<span style="color: #268bd2;">_create_default_https_context</span> = ssl._create_unverified_context
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #268bd2;">beta_url</span> = <span style="color: #2aa198;">"https://pages.stern.nyu.edu/~pschnabl/data/DSS_depositBeta.xlsx"</span>
+<span style="color: #268bd2;">betas</span> = pd.read_excel(beta_url)
+</pre>
 </div>
 
 
+<div class="org-src-container">
+<pre class="src src-python">betas
+</pre>
+</div>
 
+<pre class="example" id="orgd7df55c">
+                                            name  rssdid   cert  rankpctile  assets_cpi  assets_2022q4   expbeta  depexpbeta
+0      JPMORGAN CHASE BANK, NATIONAL ASSOCIATION  852218    628         100   455048214   3.201942e+09  0.529824    0.468395
+1          BANK OF AMERICA, NATIONAL ASSOCIATION  480228   3510         100   383877448   2.418508e+09  0.483014    0.408315
+2                                 CITIBANK, N.A.  476810   7213         100   341539080   1.766752e+09  0.355254    0.505239
+3         WELLS FARGO BANK, NATIONAL ASSOCIATION  451965   3511         100   275674516   1.717531e+09  0.426680    0.358985
+4                 U.S. BANK NATIONAL ASSOCIATION  504713   6548         100    85843162   5.851356e+08  0.442134    0.490802
+...                                          ...     ...    ...         ...         ...            ...       ...         ...
+11660                                 HUBBELL BK  438854  18796           1        2558            NaN  0.177984    0.237814
+11661                 FARMERS ST BK OF YPSILANTI  250252  10240           1        2469            NaN  0.094323    0.044873
+11662                               BANK CENTRAL  303055  11774           1        2284            NaN  0.370872    0.446175
+11663                              PLATTE CTR BK  670850  16234           1        2126            NaN  0.280005    0.273295
+11664                        STATE BK OF LIBERTY   16056  16324           1        1592            NaN  0.265194    0.446431
 
+[11665 rows x 8 columns]
+</pre>
 
-
-<div id="outline-container-org296c8f8" class="outline-2">
-<h2 id="org296c8f8"><span class="section-number-2">3.</span> Description</h2>
-<div class="outline-text-2" id="text-3">
-<p>
-Non-Maturity Deposits (NMDs) are accounts which have no set maturity dates.  This means depositors can take money out with no penalty. This in turn implies the interested rate is based on very short-term rates, and so the accounts have little interest rate risk to the depositor.  Types of non-Maturity Deposit accounts are:
-</p>
-
-<ul class="org-ul">
-<li>Retail Savings</li>
-<li>Checking</li>
-<li>Money Market</li>
-</ul>
-
-<p>
-Deposits are liabilities for banks, and are used to fund assets such as loans. NMDs are generally a stable and inexpensive source of funding for banks, and are thus used to fund a large proportion of the banks assets.  Accordingly, understanding the behavior of bank deposits markedly affects the value of the bank.
-</p>
+<div class="org-src-container">
+<pre class="src src-python">betas.to_csv(<span style="color: #2aa198;">"betas.csv"</span>)
+</pre>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Matt Brigida, Ph.D.</p>
-<p class="date">Created: 2023-08-06 Sun 14:05</p>
+<p class="date">Created: 2024-01-24 Wed 19:45</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

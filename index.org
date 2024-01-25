@@ -2,7 +2,7 @@
 #+author: Matt Brigida, Ph.D.
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
 #+HTML_HEAD: <style>pre.src{background:#343131;color:white;} </style>
-#+PROPERTY: header-args    :exports none
+#+PROPERTY: header-args    :exports code
 
 * Deposits
 
@@ -22,10 +22,49 @@ Beta: the change in deposit rates given a change in short-term interest rates.
 
 Researchers at NYU provide a dataset with the deposit beta for each bank.  We can download this data with:
 
-#+begin_src python
+#+begin_src python :session *betas*
 import pandas as pd
+#+end_src
 
-def get_beta_data():
-    
+#+RESULTS:
 
+#+begin_src python :session *betas* :eval no
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+#+end_src
+
+#+RESULTS:
+
+#+begin_src python :session *betas* :eval no
+beta_url = "https://pages.stern.nyu.edu/~pschnabl/data/DSS_depositBeta.xlsx"
+betas = pd.read_excel(beta_url)
+#+end_src
+
+#+RESULTS:
+
+
+#+begin_src python :session *betas* :eval no :exports both
+betas
+#+end_src
+
+#+RESULTS:
+#+begin_example
+                                            name  rssdid   cert  rankpctile  assets_cpi  assets_2022q4   expbeta  depexpbeta
+0      JPMORGAN CHASE BANK, NATIONAL ASSOCIATION  852218    628         100   455048214   3.201942e+09  0.529824    0.468395
+1          BANK OF AMERICA, NATIONAL ASSOCIATION  480228   3510         100   383877448   2.418508e+09  0.483014    0.408315
+2                                 CITIBANK, N.A.  476810   7213         100   341539080   1.766752e+09  0.355254    0.505239
+3         WELLS FARGO BANK, NATIONAL ASSOCIATION  451965   3511         100   275674516   1.717531e+09  0.426680    0.358985
+4                 U.S. BANK NATIONAL ASSOCIATION  504713   6548         100    85843162   5.851356e+08  0.442134    0.490802
+...                                          ...     ...    ...         ...         ...            ...       ...         ...
+11660                                 HUBBELL BK  438854  18796           1        2558            NaN  0.177984    0.237814
+11661                 FARMERS ST BK OF YPSILANTI  250252  10240           1        2469            NaN  0.094323    0.044873
+11662                               BANK CENTRAL  303055  11774           1        2284            NaN  0.370872    0.446175
+11663                              PLATTE CTR BK  670850  16234           1        2126            NaN  0.280005    0.273295
+11664                        STATE BK OF LIBERTY   16056  16324           1        1592            NaN  0.265194    0.446431
+
+[11665 rows x 8 columns]
+#+end_example
+
+#+begin_src python :session *betas* :eval no
+betas.to_csv("betas.csv")
 #+end_src
